@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import querystring from 'querystring';
 import * as commons from './commons';
+import moment from 'moment';
 
 import './App.scss';
 
@@ -31,8 +32,8 @@ class App extends Component {
     class: 'Economy',
     toPlace: 'LOND-sky',
     fromPlace: 'EDI-sky',
-    toDate: '2018-05-22',
-    fromDate: '2018-05-15'
+    toDate: moment().day(1+8).format('YYYY-MM-DD'),
+    fromDate: moment().day(1+7).format('YYYY-MM-DD')
   }
 
   fetch(`${commons.API_URL}/api/search?${querystring.stringify(params)}`)
