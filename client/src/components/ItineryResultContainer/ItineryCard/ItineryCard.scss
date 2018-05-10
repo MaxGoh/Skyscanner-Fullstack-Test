@@ -1,0 +1,21 @@
+@import "~bpk-mixins";
+
+.domain {
+  color: $bpk-color-gray-300;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.itinery-card-row {
+  padding-bottom: $bpk-spacing-sm;
+}

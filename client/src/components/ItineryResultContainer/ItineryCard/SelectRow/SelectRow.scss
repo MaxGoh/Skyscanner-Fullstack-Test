@@ -1,0 +1,16 @@
+@import "~bpk-mixins";
+
+.select-row {
+  position: relative;
+}
+
+.select-button-container {
+  margin-left: auto;
+  display: flex;
+  align-self: flex-end;
+  flex-direction: column;
+}
+
+.agent-name {
+  color: $bpk-color-gray-300;
+}

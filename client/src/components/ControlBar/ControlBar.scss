@@ -1,0 +1,20 @@
+@import "~bpk-mixins";
+
+.control-bar {
+  height: 48px;
+  background: white;
+  color: #00B2D6;
+
+  &__price-alert {
+    display: inline-block;
+    float: right;
+    svg {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+}
+
+.icon__price-alert {
+  fill: $bpk-color-blue-500;
+}

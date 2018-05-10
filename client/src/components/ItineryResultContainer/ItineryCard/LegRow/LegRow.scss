@@ -1,0 +1,33 @@
+@import "~bpk-mixins";
+
+.icon-radius {
+  border-radius: $bpk-border-radius-xs;
+}
+
+.leg-icon__long-right-arrow {
+  fill: $bpk-color-gray-300;
+}
+
+.flight-information {
+  margin-left: auto;
+  &__duration {
+    color: $bpk-color-gray-300;
+  }
+  &__stop {
+    &-direct {
+    color: $bpk-color-green-500;
+    }
+    &-indirect {
+      color: $bpk-color-red-500;
+      }
+  }
+}
+
+.padded {
+  padding-left: $bpk-spacing-sm;
+  padding-right: $bpk-spacing-sm;
+}
+
+.city-code {
+  color: $bpk-color-gray-300;
+}

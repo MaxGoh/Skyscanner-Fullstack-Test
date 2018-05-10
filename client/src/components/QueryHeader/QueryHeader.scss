@@ -1,0 +1,18 @@
+@import '~bpk-mixins';
+
+.query-header {
+  background: #00B2D6;
+  height: 90px;
+  color: white;
+  display: table;
+  width: 100%;
+
+  &__container {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+.icon__long-right-arrow {
+  fill: $bpk-color-white;
+}
