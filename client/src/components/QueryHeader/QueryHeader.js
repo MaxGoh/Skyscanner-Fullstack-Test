@@ -1,25 +1,20 @@
 import React from 'react';
-import './QueryHeader.scss';
 import PropTypes from 'prop-types';
 import BpkText from 'bpk-component-text';
 import BpkLongArrowRightIcon from 'bpk-component-icon/lg/long-arrow-right';
 import { BpkGridContainer } from 'bpk-component-grid';
+
+import './QueryHeader.scss';
 
 const QueryHeader = ({
   numOfTravellers, cabinClass, originPlace, destinationPlace
 }) => (
   <div className='query-header'>
     <BpkGridContainer className='query-header__container'>
-      <BpkText
-        tagName="span"
-        textStyle="xxl"
-      >
+      <BpkText textStyle='xxl'>
         {originPlace} <BpkLongArrowRightIcon className='icon__long-right-arrow'/> {destinationPlace}
       </BpkText>
-      <BpkText
-        tagName="p"
-        textStyle="base"
-      >
+      <BpkText tagName='p'>
         {numOfTravellers} travellers, {cabinClass}
       </BpkText>
     </BpkGridContainer>

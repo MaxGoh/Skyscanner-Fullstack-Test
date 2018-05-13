@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import ItineryCard from './ItineryCard';
-import { BpkGridContainer, BpkGridRow } from 'bpk-component-grid';
-import _ from 'lodash';
+import { BpkGridContainer } from 'bpk-component-grid';
 
 import './ItineryResultContainer.scss';
 
-const ItineryResultContainer = ({ itineries, currency }) => (
+const ItineryResultContainer = ({ itineries, currencySymbol }) => (
   <div className='itinery-result-container'>
     <BpkGridContainer>
       {
@@ -15,7 +14,7 @@ const ItineryResultContainer = ({ itineries, currency }) => (
             <div className='itinery-card-wrapper' key={index}>
               <ItineryCard
                 itinery={itinery}
-                currency={currency}
+                currencySymbol={currencySymbol}
               />
             </div>
           )
@@ -27,7 +26,7 @@ const ItineryResultContainer = ({ itineries, currency }) => (
 
 ItineryResultContainer.PropTypes = {
   itineries: PropTypes.array.isRequired,
-  currency: PropTypes.string.isRequired
+  currencySymbol: PropTypes.string.isRequired
 }
 
 export default ItineryResultContainer

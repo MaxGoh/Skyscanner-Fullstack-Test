@@ -5,18 +5,18 @@ import BpkText from 'bpk-component-text';
 
 import './SelectRow.scss';
 
-const SelectRow = ({ price, currency, agentName }) => {
+const SelectRow = ({ price, currencySymbol, agentName }) => {
   return (
     <div className='flex flex-row select-row'>
       <div className='flex flex-column'>
-        <div>
-          <BpkText tagName="span" textStyle="lg">
-            {currency}{Math.floor(price)}
+        <div> 
+          <BpkText textStyle="lg">
+            {currencySymbol}{Math.floor(price)}
           </BpkText>
         </div>
         <div>
-          <BpkText className='agent-name' tagName="span" textStyle="base">
-            {agentName} 
+          <BpkText className='agent-name'textStyle="base">
+            {agentName}
           </BpkText>
         </div>
       </div>
@@ -29,7 +29,7 @@ const SelectRow = ({ price, currency, agentName }) => {
 };
 
 SelectRow.PropTypes = {
-  currency: PropTypes.string.isRequired,
+  currencySymbol: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   agentName: PropTypes.string.isRequired
 }

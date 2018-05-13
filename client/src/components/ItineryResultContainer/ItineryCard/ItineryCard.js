@@ -6,24 +6,22 @@ import SelectRow from './SelectRow';
 
 import './ItineryCard.scss';
 
-const ItineryCard = ({ itinery, currency }) => {
-  const { Price, Agents, Agent } = itinery.PricingOptions[0];
-  let agentName = '';
-  if (Agents.length > 0) {
-    agentName = Agent.Name;
-  }
+const ItineryCard = ({ itinery, currencySymbol }) => {
+  const { Price, Agents } = itinery.PricingOptions[0];
+  let agentName;
+  (Agents.length > 0) ? agentName = Agents[0].Name : agentName = '';
   return (
     <BpkCard>
       <div className='itinery-card-row'>
         <LegRow leg={itinery.InboundLegId} />
       </div>
-      <div className='itinery-card-ro\w'>
+      <div className='itinery-card-row'>
         <LegRow leg={itinery.OutboundLegId} />
       </div>
       <div>
         <SelectRow
           price={Price}
-          currency={currency}
+          currencySymbol={currencySymbol}
           agentName={agentName}
         />
       </div>
@@ -33,7 +31,7 @@ const ItineryCard = ({ itinery, currency }) => {
 
 ItineryCard.PropTypes = {
   itinery: PropTypes.object.isRequired,
-  currency: PropTypes.string.isRequired
+  currencySymbol: PropTypes.string.isRequired
 }
 
 export default ItineryCard;

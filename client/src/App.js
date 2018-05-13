@@ -1,16 +1,22 @@
-import React, { Component } from 'react';
-import querystring from 'querystring';
-import * as commons from './commons';
-import moment from 'moment';
+import React, {
+  Component
+} from 'react';
 
-import './App.scss';
+import moment from 'moment';
+import { fetchAPI } from './api';
+
+import {
+  BpkExtraLargeSpinner,
+  SPINNER_TYPES
+} from 'bpk-component-spinner';
+import BpkText from 'bpk-component-text';
 
 import TopNav from './components/topnav';
 import QueryHeader from './components/QueryHeader';
 import ControlBar from './components/ControlBar';
 import ItineryResultContainer from './components/ItineryResultContainer';
 
-import { BpkSpinner, BpkExtraLargeSpinner, SPINNER_TYPES } from 'bpk-component-spinner';
+import './App.scss';
 
 class App extends Component {
 
@@ -20,65 +26,86 @@ class App extends Component {
       Query: {},
       Itineries: [],
       Currencies: {},
-      fetching: true
+      fetching: true,
+      message: ''
     }
   }
 
   componentDidMount() {
-  console.log('Fetching...')
+    console.log('Fetching...')
 
-  let params = {
-    adults: 1,
-    class: 'Economy',
-    toPlace: 'LOND-sky',
-    fromPlace: 'EDI-sky',
-    toDate: moment().day(1+8).format('YYYY-MM-DD'),
-    fromDate: moment().day(1+7).format('YYYY-MM-DD')
+    const params = {
+      adults: 2,
+      class: 'Economy',
+      toPlace: 'LOND-sky',
+      fromPlace: 'EDI-sky',
+      toDate: moment().day(1 + 8).format('YYYY-MM-DD'),
+      fromDate: moment().day(1 + 7).format('YYYY-MM-DD')
+    };
+
+    fetchAPI(params)
+    .then((response) => {
+      return response.json();
+    })
+    .then((results) => {
+      this.setState({
+        Query: results.Query,
+        Itineries: results.Itineries,
+        Currencies: results.Currencies,
+        fetching: false
+      });
+    })
+    .catch((() => {
+      this.setState({
+        fetching: false,
+        message: 'Error fetching API, refresh to try again.'
+      });
+    }));
   }
 
-  fetch(`${commons.API_URL}/api/search?${querystring.stringify(params)}`)
-  .then((response) => {
-    return response.json();
-  })
-  .then((results) => {
-    console.log('Response:', results);
-    this.setState({
-      Query: results.Query,
-      Itineries: results.Itineries,
-      Currencies: results.Currencies,
-      fetching: false
-    });
-  })
-  .catch(console.error)
+  getCurrencySymbol() {
+    const { Query, Currencies } = this.state;
+    let selectedCurrency = Currencies.find(currency => currency.Code === Query.Currency);
+    return selectedCurrency.Symbol;
   }
 
   render() {
-    const { Query, Itineries, Currencies, fetching } = this.state;
-    console.log(Currencies);
+    const {
+      Query,
+      Itineries,
+      fetching,
+      message
+    } = this.state;
     return (
       <div className="App">
         <TopNav/>
         {
           (fetching)
-            ? <div className='spinner-wrapper'>
+            ? <div className='wrapper'>
                 <div>
                   <BpkExtraLargeSpinner type={SPINNER_TYPES.primary} />
                 </div>
               </div>
-            : <div>
-                <QueryHeader
-                  fetching={fetching}
-                  numOfTravellers={Query.Adults}
-                  cabinClass={Query.CabinClass.toLowerCase()}
-                  originPlace={Query.OriginPlace.Code}
-                  destinationPlace={Query.DestinationPlace.Code}
-                />
-                <ControlBar />
-                <ItineryResultContainer
-                  itineries={Itineries}
-                  currency={Currencies.Symbol}
-                />
-              </div>
+            : (message === '')
+              ? <div>
+                  <QueryHeader
+                    fetching={fetching}
+                    numOfTravellers={Query.Adults + Query.Infants + Query.Children}
+                    cabinClass={Query.CabinClass.toLowerCase()}
+                    originPlace={Query.OriginPlace.Code}
+                    destinationPlace={Query.DestinationPlace.Code}
+                  />
+                  <ControlBar />
+                  <ItineryResultContainer
+                    itineries={Itineries}
+                    currencySymbol={this.getCurrencySymbol()}
+                  />}
+                </div>
+              : <div className='wrapper'>
+                  <BpkText tagName="p" textStyle="base">
+                    {message}
+                  </BpkText>
+                </div>
         }
       </div>
     );

@@ -1,3 +1,3 @@
-import QueryHeader from './QueryHeader.js'
+import QueryHeader from './QueryHeader.js';
 
-export default QueryHeader
+export default QueryHeader;
